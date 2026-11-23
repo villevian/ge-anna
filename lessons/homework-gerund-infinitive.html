@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homework: Gerund vs Infinitive</title>
+<style>
+  :root{
+    --bg:#f6f7f8; --card:#fff; --ink:#1a1a1b; --muted:#6b6f73; --line:#e3e5e8;
+    --or:#ff4500; --or-soft:#fff1eb;
+    --to:#2563eb; --to-soft:#eaf1ff;
+    --ing:#db2777; --ing-soft:#fdecf4;
+    --bare:#059669; --bare-soft:#e7f7f0;
+    --ok:#16a34a; --ok-soft:#e9f8ee; --bad:#dc2626; --bad-soft:#fdecec; --meh:#b45309; --meh-soft:#fff6e0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  .top{max-width:820px;margin:0 auto;padding:14px 16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .logo{width:36px;height:36px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+  h1{font-size:18px;margin:0;line-height:1.2}
+  h1 small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+  .score{margin-left:auto;background:var(--or-soft);color:var(--or);font-weight:700;border-radius:999px;padding:6px 12px;font-size:14px}
+  nav{max-width:820px;margin:0 auto;display:flex;gap:4px;padding:10px 16px 0;overflow-x:auto}
+  nav button{border:0;background:none;padding:10px 12px;font:inherit;font-size:15px;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+  nav button.on{color:var(--ink);font-weight:700;border-bottom-color:var(--or)}
+  main{max-width:820px;margin:0 auto;padding:18px 16px 60px}
+  .view{display:none}.view.on{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+  .hint{color:var(--muted);font-size:14px;margin:0 0 14px}
+
+  /* cheat sheet */
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media(max-width:700px){.cols{grid-template-columns:1fr}}
+  .col h3{margin:0 0 8px;font-size:16px}
+  .col.to h3{color:var(--to)} .col.ing h3{color:var(--ing)} .col.bare h3{color:var(--bare)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border-radius:999px;padding:3px 10px;font-size:14px}
+  .to .chip{background:var(--to-soft);color:var(--to)} .ing .chip{background:var(--ing-soft);color:var(--ing)} .bare .chip{background:var(--bare-soft);color:var(--bare)}
+  .trap{background:var(--meh-soft);border:1px solid #f5d79e;border-radius:10px;padding:12px 14px;font-size:14px;margin-top:14px}
+  .trap b{color:var(--meh)}
+
+  /* drill */
+  .drill{text-align:center;padding:30px 18px}
+  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:22px}
+  .progress i{display:block;height:100%;background:var(--or);width:0;transition:width .3s}
+  .big{font-size:40px;font-weight:800;margin:6px 0 4px}
+  .sub{color:var(--muted);font-size:14px;min-height:22px}
+  .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .btn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer;min-width:150px}
+  .btn.to{color:var(--to);border-color:#c7d8fb}.btn.to:hover{background:var(--to-soft)}
+  .btn.ing{color:var(--ing);border-color:#f6c4dc}.btn.ing:hover{background:var(--ing-soft)}
+  .btn.bare{color:var(--bare);border-color:#b5e6d2}.btn.bare:hover{background:var(--bare-soft)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .fb{margin-top:18px;font-weight:700;min-height:26px}
+  .fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+  .main-btn{background:var(--or);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:inherit;font-weight:700;cursor:pointer}
+  .ghost{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font:inherit;cursor:pointer}
+
+  /* reddit post */
+  .post{display:flex;gap:12px}
+  .vote{display:flex;flex-direction:column;align-items:center;color:var(--muted);font-size:13px;font-weight:700;min-width:40px}
+  .vote .arr{color:var(--or);font-size:20px;line-height:1}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta b{color:var(--ink)}
+  .post h2{font-size:19px;margin:6px 0 12px;line-height:1.3}
+  .body{font-size:16.5px;line-height:2.1}
+  .body b{background:#fff7d6;padding:0 3px;border-radius:4px}
+  select{font:inherit;font-size:15px;border:2px solid #cfd3d8;border-radius:8px;padding:2px 6px;background:#fff;color:var(--ink);max-width:100%}
+  select.ok{border-color:var(--ok);background:var(--ok-soft)}
+  select.bad{border-color:var(--bad);background:var(--bad-soft)}
+  select.meh{border-color:#e7b44a;background:var(--meh-soft)}
+  .notes{margin-top:14px;display:none}
+  .note{font-size:14px;border-radius:8px;padding:8px 12px;margin-top:6px}
+  .note.bad{background:var(--bad-soft)} .note.meh{background:var(--meh-soft)}
+  .comment{display:none;margin-top:16px;border-left:3px solid var(--line);padding:4px 0 4px 12px}
+  .comment .meta{margin-bottom:2px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+  .result{font-weight:700}
+  .dots{display:flex;gap:6px;justify-content:center;margin:6px 0 14px;flex-wrap:wrap}
+  .dot{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:13px;cursor:pointer;color:var(--muted)}
+  .dot.on{border-color:var(--or);color:var(--or);font-weight:700}
+  .dot.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+
+  /* comments mode */
+  .cm{display:flex;gap:10px;align-items:flex-start}
+  .ava{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:16px;background:var(--or-soft)}
+  .cm-text{font-size:17px;margin:4px 0 12px}
+  .cm-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .cm-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+  .cm-btn:disabled{cursor:default}
+  .cm-fb{margin-top:10px;font-size:14px;border-radius:8px;padding:8px 12px;display:none}
+  .cm-fb.ok{background:var(--ok-soft);display:block}.cm-fb.bad{background:var(--bad-soft);display:block}
+  .done-box{text-align:center;padding:26px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="logo">r/</div>
+    <h1>r/GerundOrInfinitive · Homework<small>Повторяем уроки 1 и 2: глаголы, предлоги, too/enough, «меняется смысл»</small></h1>
+    <div class="score" id="score">⬆ 0 karma</div>
+  </div>
+  <nav>
+    <button data-v="cheat">📖 Таблица</button>
+    <button data-v="posts" class="on">🔥 Reddit-драмы</button>
+    <button data-v="comments">💬 Комментарии</button>
+    <button data-v="write">✍️ Твой пост</button>
+  </nav>
+<div id="syncbar" style="max-width:820px;margin:0 auto;padding:6px 16px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px">
+<a href="../index.html" style="color:var(--or);text-decoration:none;font-weight:700">← Мои уроки</a><a href="grammar-gerund-infinitive.html" target="_blank" style="color:var(--to);text-decoration:none;font-weight:700">📖 Таблица</a><span id="syst" style="color:var(--muted)">Загрузка…</span>
+<button id="sysend" class="ghost" style="margin-left:auto;padding:6px 14px;font-size:14px">📨 Отправить учителю</button><span id="sydone" style="display:none;color:var(--ok);font-weight:700">✓ Отправлено</span></div>
+<div id="tcom" style="display:none;max-width:820px;margin:8px auto 0;background:#fff6e0;border:1px solid #f5d79e;border-radius:10px;padding:10px 14px;font-size:14px;white-space:pre-wrap"><b>💬 Комментарий учителя:</b><div id="tcomt"></div></div>
+</header>
+
+<main>
+  <!-- CHEAT -->
+  <section class="view" id="cheat"><div class="card"><p class="hint">Все правила — в таблице. Открой её в соседней вкладке и подглядывай, если сомневаешься 🙂</p>
+   <a class="main-btn" style="text-decoration:none;display:inline-block" href="grammar-gerund-infinitive.html" target="_blank">📖 Открыть таблицу «to do or doing?»</a>
+   <div class="trap" style="margin-top:16px"><b>В этой домашке встретятся:</b> глаголы из урока 1 · remember / forget / stop / try / regret · предлоги + doing (good at, afraid of, used to, look forward to…) · too / enough + to do · to do = «чтобы» · doing как подлежащее · It is important to…</div>
+   <div id="cols" style="display:none"></div><div id="drillCard" style="display:none"></div></div></section>
+
+  <!-- POSTS -->
+  <section class="view on" id="posts">
+    <p class="hint">6 новых постов. Выбери правильную форму в каждом пропуске и нажми «Проверить». Подсказка выделена жёлтым: это глагол, предлог или конструкция, от которой зависит форма.</p>
+    <div class="dots" id="dots"></div>
+    <div id="postBox"></div>
+  </section>
+
+  <!-- COMMENTS -->
+  <section class="view" id="comments">
+    <p class="hint">Комментаторы на Reddit пишут быстро и с ошибками. Решай: всё правильно или есть ошибка?</p>
+    <div id="cmBox"></div>
+  </section>
+
+  <!-- WRITE -->
+  <section class="view" id="write"><div class="card">
+   <p class="hint">Напиши свой пост для Reddit (80–120 слов): смешная или бесячая история из жизни — работа, соседи, отпуск, друзья. Можно придумать 😉 Используй минимум <b>6 конструкций</b> из списка — они отмечаются сами, когда ты их пишешь.</p>
+   <input id="wTitle" placeholder="AITA for… / My neighbour… / I can't believe…" style="width:100%;font:inherit;font-weight:700;border:2px solid #cfd3d8;border-radius:10px;padding:8px 10px;margin-bottom:8px">
+   <textarea id="wText" rows="9" style="width:100%;font:inherit;border:2px solid #cfd3d8;border-radius:10px;padding:10px" placeholder="Write your post here…"></textarea>
+   <div class="row"><span class="result" id="wCount">0 слов</span><span class="sub" id="wUsed"></span></div>
+   <div class="chips" id="wChips" style="margin-top:10px"></div>
+  </div></section>
+</main>
+
+<script>
+const TO = ['afford','ask','agree','appear','arrange','attempt','be able','choose','decide','expect','fail','hope','happen','intend','learn','manage','offer','plan','prepare','pretend','promise','refuse','seem','want','wish','would like','would love','would prefer','demand'];
+const ING = ['admit','appreciate','avoid',"can't help",'consider','continue','deny',"can't stand",'delay','dislike','enjoy','feel like','finish','imagine','involve','mind','miss','practice','suggest','like','love','prefer','hate','detest','start','stop','fancy'];
+const BARE = ['make','let','help'];
+const BOTH = ['like','love','hate','prefer','start','continue'];
+const PREP = ['be used to','insist on','have trouble','think of','no point in','be afraid of','look forward to','be good at','succeed in','be proud of','be interested in','apologise for','be worth','spend time','no use','subject'];
+const LABEL = {to:'+ to do', ing:'+ doing', bare:'+ do (без to)'};
+
+const EXTRA = {
+  'forget':'forget to do = забыть сделать · forget doing = забыть (или «никогда не забуду»), как это было.',
+  'remember':'remember doing = помню, как было (прошлое) · remember to do = не забыть сделать.',
+  'try':'try doing = попробовать как вариант · try to do = пытаться (это сложно).',
+  'regret':'regret doing = жалею, что сделала · regret to inform = с сожалением сообщаем (официально).',
+  'purpose':'Зачем? Чтобы… → to do (цель).',
+  'too':'too + adjective + to do.',
+  'enough':'adjective + enough + to do.',
+  'it + adj':'It is important / easy / necessary + to do.',
+  'subject':'Подлежащее в начале предложения → doing.',
+  'be used to':'be used to + doing (to — предлог!).',
+  'look forward to':'look forward to + doing (to — предлог!).',
+  'no point in':'There\'s no point (in) + doing.',
+  'no use':'It\'s no use + doing.',
+  'be worth':'be worth + doing.',
+  'spend time':'spend time + doing.',
+  'have trouble':'have trouble / difficulty + doing.',
+  'stop':'stop doing = перестать. stop to do = остановиться, ЧТОБЫ сделать. Она не остановилась поболтать — она объявила бойкот 😅',
+  'would like':'would + like/love/prefer → всегда to!',
+  'would love':'would + like/love/prefer → всегда to!',
+  'would prefer':'would + like/love/prefer → всегда to!',
+  'make':'make/let/help + кого-то + глагол БЕЗ to (как в «I will make you cry»).',
+  'let':'make/let/help + кого-то + глагол БЕЗ to (как в «I will let you cry»).',
+  'help':'make/let/help + кого-то + глагол БЕЗ to.',
+  'be able':'be able → to (isn\'t able to find).',
+  'expect':'expect + кого-то + to do.',
+  'ask':'ask + кого-то + to do.',
+  'like':'like без would → doing. А вот would like → to do!',
+  'prefer':'prefer без would → doing. А вот would prefer → to do!'
+};
+
+const POSTS = [
+ {sub:'AmItheAsshole', user:'pasta_museum_curator', ups:'14.8k',
+  title:'AITA for putting my roommate\'s dirty pans on her bed?',
+  text:"My roommate (27F) **promised** {clean|cleaning|to|promise} the kitchen last week. She **forgot** {do|doing|to|forget} it. Again. When I asked, she said she **remembers** {wash|washing|ing|remember} the dishes on Sunday. She didn't. I **stopped** {cook|cooking|ing|stop} at home because our sink is now a museum of old pasta. Yesterday I **tried** {talk|talking|to|try} to her calmly, but she just put on her headphones. Honestly, I'm **too tired** {argue|arguing|to|too} anymore. Is it **worth** {look|looking|ing|be worth} for a new flat?",
+  top:{u:'dish_detective', t:'NTA. «I remember washing them» — in which universe?'}},
+ {sub:'antiwork', user:'not_a_team_player_apparently', ups:'22.3k',
+  title:'My manager calls me at 11 p.m. «just for a second»',
+  text:"My manager **is used to** {get|getting|ing|be used to} answers at night. Last night he called me {ask|asking|to|purpose} about ONE slide. I really **regret** {give|giving|ing|regret} him my personal number. Today he **insisted on** {have|having|ing|insist on} a meeting at 8 a.m. «just for 5 minutes». It lasted an hour. Now I **have trouble** {sleep|sleeping|ing|have trouble}. I'm **thinking of** {find|finding|ing|think of} a new job. HR says **it's important** {be|being|to|it + adj} «a team player». Is there any **point in** {complain|complaining|ing|no point in}?",
+  top:{u:'boundaries_bot', t:'Phone on silent after 7. Answering at 11 p.m. is not part of your salary.'}},
+ {sub:'weddingshaming', user:'pink_dress_rebel', ups:'31.6k',
+  title:'My sister sent us a 14-page guide for her wedding',
+  text:"My sister **is afraid of** {lose|losing|ing|be afraid of} control, so all the guests got a 14-page PDF. Page 3: «We **regret** {inform|informing|to|regret} you that children are not invited.» She sent it to our MUM. Then she **made** us {buy|buying|bare|make} matching green dresses for €300. I **can't afford** {spend|spending|to|afford} that on a dress I'll wear once. She also said I'm «not tall **enough**» {wear|wearing|to|enough} green. Wow. I **look forward to** {see|seeing|ing|look forward to} her face when I arrive in pink. I'm very **good at** {make|making|ing|be good at} an entrance 💅",
+  top:{u:'wedding_popcorn', t:'14 pages?! The Bible has fewer rules for weddings.'}},
+ {sub:'TrueOffMyChest', user:'flipflop_sprinter', ups:'18.9k',
+  title:'I forgot my passport. We were already at the airport.',
+  text:"I clearly **remember** {lock|locking|ing|remember} the door. I **remember** {turn|turning|ing|remember} off the iron. But somehow I **forgot** {pack|packing|to|forget} my passport. My husband **stopped** {talk|talking|ing|stop} to me for twenty minutes. Then he **stopped** {buy|buying|to|stop} a coffee, calmed down and said: «**Try** {call|calling|ing|try} Lena, she has our key!» Our neighbour Lena drove 40 minutes {bring|bringing|to|purpose} it. We **succeeded in** {catch|catching|ing|succeed in} the flight. I will never **forget** {run|running|ing|forget} through Terminal 2 in flip-flops.",
+  top:{u:'travel_angel_lena_fan', t:'Lena deserves a holiday too. Buy her the best souvenir in Portugal.'}},
+ {sub:'relationship_advice', user:'yoga_is_not_just_stretching', ups:'9.4k',
+  title:'My boyfriend loves the gym more than me (I think)',
+  text:"{go|going|ing|subject} to the gym is great, I know. But my boyfriend **spends** two hours every evening {take|taking|ing|spend time} selfies there. He **is proud of** {have|having|ing|be proud of} «the best abs in the office». Now he **has suggested** {join|joining|ing|suggest} him at 6 a.m. I **hate** {get|getting|ing|hate} up early. I'm **interested in** {try|trying|ing|be interested in} yoga, but he says yoga is «just stretching». I **would prefer** {spend|spending|to|would prefer} our evenings together, on the sofa. But **it's no use** {explain|explaining|ing|no use}. He doesn't listen.",
+  top:{u:'sofa_supremacy', t:'Tell him the sofa is a full-body workout if you do it right 😂'}},
+ {sub:'AmItheAsshole', user:'drums_at_dawn', ups:'12.1k',
+  title:'AITA for forgiving my neighbour just because of cookies?',
+  text:"My neighbour **started** {learn|learning|ing|start} the drums in March. It's November. He **practises** {play|playing|ing|practice} at 7 a.m. every day. I **asked** him {play|playing|to|ask} after 10. He **agreed** {wait|waiting|to|agree}… and then **continued** {play|playing|ing|continue} at 7. Yesterday he knocked {apologise|apologising|to|purpose} and **apologised for** {wake|waking|ing|apologise for} me up. He brought chocolate cookies. Now I kind of **feel like** {forgive|forgiving|ing|feel like} him. The cookies were **too good** {stay|staying|to|too} angry.",
+  top:{u:'cookie_diplomat', t:'NTA. Peace treaties have been signed for less.'}}
+];
+
+const COMMENTS = [
+ {u:'landlord_hater', a:'🏠', t:'Try talking to your landlord. Maybe he can help.', ok:true, fix:'try + doing = попробуй как вариант ✔'},
+ {u:'early_bird_no', a:'🐓', t:"I'm used to wake up at 6 because of my neighbour's dog.", ok:false, fix:"I'm used to <b>waking</b> — be used to + doing (to здесь предлог)"},
+ {u:'privacy_queen', a:'🔒', t:'Remember to lock your phone before your sister reads it!', ok:true, fix:'remember + to do = не забудь сделать ✔'},
+ {u:'just_leave', a:'🚪', t:'There is no point to complain. Just leave.', ok:false, fix:'no point <b>in complaining</b> — no point (in) + doing'},
+ {u:'lesson_learned', a:'📵', t:'I regret to give my boss my number too. Never again.', ok:false, fix:'regret <b>giving</b> — жалею о том, что сделала → doing'},
+ {u:'people_pleaser', a:'🥺', t:"You're too nice for say no to her.", ok:false, fix:'too nice <b>to say</b> — too + adjective + to do'},
+ {u:'night_owl', a:'🦉', t:'Going to bed at 2 a.m. is my whole personality 😴', ok:true, fix:'doing как подлежащее ✔'},
+ {u:'update_hunter', a:'🔔', t:"I'm looking forward to hear the update!", ok:false, fix:'looking forward to <b>hearing</b> — to здесь предлог → doing'},
+ {u:'family_drama', a:'🎭', t:'My brother stopped talking to me after my wedding. Best year ever 😂', ok:true, fix:'stop + doing = перестать ✔'},
+ {u:'gym_critic', a:'💪', t:'He goes to the gym for showing his abs on Instagram.', ok:false, fix:'goes to the gym <b>to show</b> — цель (чтобы) → to do'},
+ {u:'honest_abe', a:'🗣️', t:"It's important being honest with your sister.", ok:false, fix:"It's important <b>to be</b> — it + be + adjective + to do"},
+ {u:'cookie_monster', a:'🍪', t:"I'm not very good at saying no to cookies either.", ok:true, fix:'good at + doing ✔'},
+ {u:'abs_or_me', a:'💔', t:'Is it worth to fight for a man who loves his abs more than you?', ok:false, fix:'worth <b>fighting</b> — be worth + doing'},
+ {u:'wedding_memories', a:'💒', t:"I'll never forget to see my ex's face at that wedding.", ok:false, fix:"never forget <b>seeing</b> — не забуду, как это было → doing"},
+ {u:'photo_please', a:'📸', t:"Don't forget to send us a photo of the pink dress!", ok:true, fix:'forget + to do = забыть сделать ✔'},
+ {u:'gentleman_not', a:'🎩', t:'On our first date he insisted to pay for everything. Then he sent me the bill.', ok:false, fix:'insisted <b>on paying</b> — insist on + doing'}
+];
+
+/* ---------- karma ---------- */
+let karma = 0;
+function addKarma(n){karma+=n;document.getElementById('score').textContent='⬆ '+karma+' karma';}
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===b.dataset.v));
+  window.scrollTo(0,0);
+});
+
+/* ---------- cheat ---------- */
+document.getElementById('cols').innerHTML =
+  [['to','to + V (to do)',TO],['ing','V-ing (doing)',ING],['bare','V без to (do)',BARE.map(v=>v+' + smb')]]
+  .map(([c,h,l])=>`<div class="col ${c}"><h3>${h}</h3><div class="chips">${l.map(v=>`<span class="chip">${v}</span>`).join('')}</div></div>`).join('');
+
+/* ---------- drill ---------- */
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const ALL = [...TO.map(v=>({v,a:'to'})),...ING.map(v=>({v,a:'ing'})),...BARE.map(v=>({v,a:'bare'}))];
+let dq, dTotal, dDone, dErr, dMissed;
+function startDrill(){dq=shuffle(ALL);dTotal=dq.length;dDone=0;dErr=0;dMissed=new Set();renderDrill();}
+function renderDrill(){
+  const box=document.getElementById('drillCard');
+  if(!dq.length){
+    box.innerHTML=`<div class="big">🎉</div><h2>Все ${dTotal} глаголов разобраны!</h2>
+      <p class="sub">Ошибок: ${dErr}</p>
+      ${dMissed.size?`<p>Повтори эти: <b>${[...dMissed].join(', ')}</b></p>`:'<p>Без единой ошибки. Легенда r/grammar 👑</p>'}
+      <button class="main-btn" onclick="startDrill()">Ещё раз</button>`;
+    return;
+  }
+  const it=dq[0];
+  box.innerHTML=`<div class="progress"><i style="width:${dDone/dTotal*100}%"></i></div>
+    <div class="sub">Осталось: ${dq.length}</div>
+    <div class="big">${it.v}${it.a==='bare'?' <span style="color:var(--muted);font-weight:400">smb</span>':''}</div>
+    <div class="sub">…и что дальше?</div>
+    <div class="btns">
+      <button class="btn to" data-a="to">to do</button>
+      <button class="btn ing" data-a="ing">doing</button>
+      <button class="btn bare" data-a="bare">do (без to)</button>
+    </div><div class="fb" id="dfb"></div>`;
+  box.querySelectorAll('.btn').forEach(b=>b.onclick=()=>answerDrill(b.dataset.a));
+}
+function answerDrill(a){
+  const it=dq[0], fb=document.getElementById('dfb');
+  document.querySelectorAll('#drillCard .btn').forEach(b=>b.disabled=true);
+  const ex = EXTRA[it.v] ? ' — '+EXTRA[it.v] : '';
+  if(a===it.a){
+    fb.className='fb ok';fb.innerHTML='✔ '+it.v+' '+LABEL[it.a]+ex;
+    dq.shift();dDone++;addKarma(1);
+    setTimeout(renderDrill, ex?1700:700);
+  }else{
+    fb.className='fb bad';fb.innerHTML='✘ '+it.v+' '+LABEL[it.a]+ex+'<br><span style="font-weight:400;color:var(--muted)">Этот глагол вернётся в конце 😉</span>';
+    dErr++;dMissed.add(it.v);dq.push(dq.shift());
+    setTimeout(renderDrill,2200);
+  }
+}
+
+/* ---------- posts ---------- */
+let cur=0; const postDone={};
+function renderDots(){
+  document.getElementById('dots').innerHTML=POSTS.map((p,i)=>`<button class="dot ${i===cur?'on':''} ${postDone[i]?'done':''}" onclick="goPost(${i})">${i+1}</button>`).join('');
+}
+function goPost(i){cur=i;renderPost();renderDots();}
+function renderPost(){
+  const p=POSTS[cur]; const gaps=[];
+  let html=p.text.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\{([^}]+)\}/g,(m,inner)=>{
+    const [base,ing,ans,trig]=inner.split('|'); const i=gaps.length;
+    gaps.push({base,ing,ans,trig});
+    return `<select data-i="${i}"><option value="">(${base}) ▾</option><option value="to">to ${base}</option><option value="ing">${ing}</option><option value="bare">${base}</option></select>`;
+  });
+  document.getElementById('postBox').innerHTML=`
+   <div class="card"><div class="post">
+     <div class="vote"><span class="arr">⬆</span>${p.ups}<span>⬇</span></div>
+     <div style="flex:1;min-width:0">
+       <div class="meta"><b>r/${p.sub}</b> · Posted by u/${p.user}</div>
+       <h2>${p.title}</h2>
+       <div class="body">${html}</div>
+       <div class="row"><button class="main-btn" id="chk">Проверить</button>
+         <span class="result" id="res"></span></div>
+       <div class="notes" id="notes"></div>
+       <div class="comment" id="top"><div class="meta"><b>u/${p.top.u}</b> · Top comment · ⬆ ${Math.floor(Math.random()*8+2)}.${Math.floor(Math.random()*9)}k</div>${p.top.t}</div>
+       <div class="row" id="navrow" style="display:none">
+         ${cur<POSTS.length-1?'<button class="main-btn" onclick="goPost(cur+1)">Следующий пост →</button>':'<span class="result">🏁 Последний пост! Дальше — «Комментарии» и «Твой пост».</span>'}
+         <button class="ghost" onclick="renderPost()">Пройти заново</button>
+       </div>
+     </div></div></div>`;
+  document.getElementById('chk').onclick=()=>checkPost(gaps);
+}
+function checkPost(gaps){
+  const sels=[...document.querySelectorAll('#postBox select')];
+  if(sels.some(s=>!s.value)){document.getElementById('res').textContent='Заполни все пропуски 🙂';return;}
+  let ok=0; const notes=[];
+  sels.forEach((s,i)=>{
+    const g=gaps[i]; s.disabled=true;
+    const ansText = g.ans==='to'?'to '+g.base:g.ans==='ing'?g.ing:g.base;
+    if(s.value===g.ans){s.className='ok';ok++;}
+    else if(g.ans==='ing' && BOTH.includes(g.trig) && s.value==='to'){
+      s.className='meh';ok++;
+      notes.push(`<div class="note meh">🟡 <b>${g.trig}</b> + to ${g.base} — тоже возможно, но по нашей таблице учим <b>${g.trig} + ${g.ing}</b>.</div>`);
+    } else {
+      s.className='bad';
+      notes.push(`<div class="note bad">✘ <b>${g.trig}</b> ${LABEL[g.ans]} → <b>${ansText}</b>${EXTRA[g.trig]?'<br>'+EXTRA[g.trig]:(PREP.includes(g.trig)?'<br>После предлога → всегда doing.':'')}</div>`);
+    }
+  });
+  addKarma(ok);
+  const n=document.getElementById('notes'); n.innerHTML=notes.join(''); n.style.display=notes.length?'block':'none';
+  document.getElementById('res').textContent = `${ok} / ${gaps.length}` + (ok===gaps.length?' — идеально! 🔥':'');
+  document.getElementById('chk').style.display='none';
+  document.getElementById('top').style.display='block';
+  document.getElementById('navrow').style.display='flex';
+  postDone[cur]=true; renderDots();
+}
+renderDots(); renderPost();
+
+/* ---------- comments ---------- */
+let ci=0, cOk=0;
+function renderCm(){
+  const box=document.getElementById('cmBox');
+  if(ci>=COMMENTS.length){
+    box.innerHTML=`<div class="card done-box"><div class="big">💬</div><h2>${cOk} / ${COMMENTS.length}</h2>
+      <p class="sub">${cOk>=14?'Ты официальный грамматический модератор Reddit 🛡️':cOk>=10?'Неплохо! Ещё кружок — и бан для всех ошибок 😎':'Загляни в шпаргалку и попробуй ещё раз 💪'}</p>
+      <button class="main-btn" onclick="ci=0;cOk=0;renderCm()">Ещё раз</button></div>`;
+    return;
+  }
+  const c=COMMENTS[ci];
+  box.innerHTML=`<div class="card">
+    <div class="sub" style="margin-bottom:10px">Комментарий ${ci+1} из ${COMMENTS.length}</div>
+    <div class="cm"><div class="ava">${c.a}</div><div style="flex:1">
+      <div class="meta"><b>u/${c.u}</b> · ${Math.floor(Math.random()*23)+1}h</div>
+      <div class="cm-text">${c.t}</div>
+      <div class="cm-actions">
+        <button class="cm-btn" data-x="1">✅ Всё правильно</button>
+        <button class="cm-btn" data-x="0">❌ Есть ошибка</button>
+      </div>
+      <div class="cm-fb" id="cmfb"></div>
+      <div class="row" id="cmnext" style="display:none"><button class="main-btn">Дальше →</button></div>
+    </div></div></div>`;
+  box.querySelectorAll('.cm-btn').forEach(b=>b.onclick=()=>{
+    box.querySelectorAll('.cm-btn').forEach(x=>x.disabled=true);
+    const right = (b.dataset.x==='1')===c.ok;
+    const fb=document.getElementById('cmfb');
+    fb.className='cm-fb '+(right?'ok':'bad');
+    fb.innerHTML=(right?'✔ Верно! ':'✘ Не совсем. ')+(c.ok?'Тут всё правильно: ':'Правильно: ')+c.fix;
+    if(right){cOk++;addKarma(1);}
+    const nx=document.getElementById('cmnext'); nx.style.display='flex';
+    nx.querySelector('button').onclick=()=>{ci++;renderCm();};
+  });
+}
+renderCm();
+/* ---------- write ---------- */
+const WT=[['remember / forget',/\b(remember|remembered|forget|forgot|forgotten)\b/i],['stop / try / regret',/\b(stop|stopped|try|tried|regret|regretted)\b/i],
+ ['предлог + doing',/\b(at|of|in|on|about|for|to)\s+\w+ing\b/i],['too / enough + to do',/\b(too\s+\w+\s+to|enough\s+(\w+\s+)?to)\s+\w+/i],
+ ['to do = чтобы',/\b(went|came|called|drove|stopped|go|come|call|drive|use|used)\b[^.]*\bto\s+[a-z]+/i],['doing как подлежащее',/(^|[.!?]\s+)[A-Z]\w+ing\b[^.]*\b(is|was)\b/],
+ ["it's + adj + to do",/\bit('s| is| was)\s+(important|easy|hard|difficult|impossible|nice|good|necessary)\s+to\b/i],['can\'t stand / enjoy / avoid…',/\b(enjoy|enjoyed|avoid|avoided|can't stand|mind|suggest|suggested|finish|finished|miss|missed|imagine)\w*\s+\w+ing\b/i],
+ ['would like / love + to do',/\bwould (like|love|prefer)\s+to\b|\b\w+'d (like|love|prefer) to\b/i],['be worth / no point / spend time',/\b(worth|no point|no use|spend|spent)\b[^.]*\w+ing\b/i]];
+function wUpd(){const t=document.getElementById('wText').value,n=(t.match(/\b[\w']+\b/g)||[]).length,used=WT.filter(w=>w[1].test(t));
+ document.getElementById('wCount').textContent=n+' слов'+(n>=80?' ✓':'');document.getElementById('wUsed').textContent='Конструкций: '+used.length+' / 6'+(used.length>=6?' ✓':'');
+ document.getElementById('wChips').innerHTML=WT.map(w=>`<span class="cm-btn" style="${w[1].test(t)?'background:var(--ok-soft);border-color:var(--ok);color:var(--ok)':''}">${w[1].test(t)?'✔ ':''}${w[0]}</span>`).join('')}
+document.getElementById('wText').oninput=wUpd;wUpd();
+</script>
+<script>
+(()=>{
+const SB_URL="https://zuegojpfhgigsvyrnymt.supabase.co",SB_KEY="sb_publishable__Xn8xRhne9Hp2ckaXu6xCQ_MOe52bng";
+const LESSON="GE B1 Gerund vs Infinitive: Homework",CODE="2e1bfecb13d88ed771d4b108fa75cdd3";const $=id=>document.getElementById(id);
+const rpc=(f,b)=>fetch(SB_URL+"/rest/v1/rpc/"+f,{method:"POST",headers:{apikey:SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(b)}).then(async r=>{const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null});
+let ready=false,submitted=false,timer=null;const postRes={};let drillBest=null;
+function st(t,c){$("syst").textContent=t;$("syst").style.color=c||"var(--muted)"}
+function state(){return{karma:karma,postDone:postDone,postRes:postRes,commentsDone:ci,commentsOk:cOk,post:{title:$('wTitle').value,text:$('wText').value}}}
+function scores(){const posts=Object.values(postRes);const ok=posts.reduce((a,p)=>a+p.ok,0),tot=posts.reduce((a,p)=>a+p.total,0);
+ return{posts:posts.length+"/"+POSTS.length,posts_score:ok+"/"+tot,comments:Math.min(ci,COMMENTS.length)+"/"+COMMENTS.length,comments_ok:cOk,karma:karma,post_words:($("wText").value.match(/\b[\w']+\b/g)||[]).length}}
+function local(){try{localStorage.setItem("ge:"+LESSON+":"+(CODE||"preview"),JSON.stringify(state()))}catch(e){}}
+async function save(){if(!ready)return;local();if(!CODE){st("Предпросмотр — результаты сохраняются только на этом устройстве.");return}
+ try{await rpc("save_hw",{p_code:CODE,p_lesson:LESSON,p_answers:state(),p_score:scores(),p_submitted:submitted});st("Сохранено ✓ "+new Date().toLocaleTimeString().slice(0,5),"var(--ok)")}
+ catch(e){st("Нет интернета — результаты сохранены на этом устройстве.","var(--bad)")}}
+function later(){clearTimeout(timer);timer=setTimeout(save,900)}
+/* hooks */
+const _check=checkPost;checkPost=function(gaps){_check(gaps);const sels=[...document.querySelectorAll('#postBox select')];if(sels.some(x=>!x.disabled))return;
+ const ok=sels.filter(x=>x.classList.contains('ok')||x.classList.contains('meh')).length;postRes[cur]={ok:ok,total:gaps.length,answers:sels.map(x=>x.value)};later()};
+const _render=renderPost;renderPost=function(){_render();const r=postRes[cur];if(r){const e=$('res');if(e)e.textContent="Прошлый результат: "+r.ok+" / "+r.total}};
+const _ans=answerDrill;answerDrill=function(a){_ans(a);if(!dq.length){drillBest={errors:dErr,missed:[...dMissed]};}later()};
+document.addEventListener("click",e=>{if(e.target.closest("#cmBox"))later()},true);document.addEventListener("input",e=>{if(e.target.closest("#write"))later()});
+$("sysend").onclick=async()=>{submitted=true;await save();$("sydone").style.display="inline";$("sysend").style.display="none"};
+(async()=>{let a=null;if(CODE){try{const r=await rpc("get_my_hw",{p_code:CODE,p_lesson:LESSON});const d=r&&r[0];
+  if(d){if(d.answers&&Object.keys(d.answers).length)a=d.answers;submitted=!!d.submitted;if(d.teacher_comment){$("tcomt").textContent=d.teacher_comment;$("tcom").style.display="block"}}}catch(e){}}
+ if(!a){try{a=JSON.parse(localStorage.getItem("ge:"+LESSON+":"+(CODE||"preview"))||"null")}catch(e){}}
+ if(a){addKarma((a.karma||0)-karma);Object.assign(postDone,a.postDone||{});Object.assign(postRes,a.postRes||{});drillBest=a.drill||null;
+  if(a.commentsDone){ci=a.commentsDone;cOk=a.commentsOk||0;renderCm()}if(a.post){$('wTitle').value=a.post.title||'';$('wText').value=a.post.text||'';wUpd()}renderDots();renderPost()}
+ if(submitted){$("sydone").style.display="inline";$("sysend").style.display="none"}
+ ready=true;st(CODE?(a?"С возвращением! Твои результаты загружены.":"Результаты сохраняются автоматически."):"Предпросмотр — результаты сохраняются только на этом устройстве.",CODE?"var(--ok)":"")})();
+})();
+</script>
+<footer style="text-align:center;color:var(--muted);font-size:13px;padding:0 0 30px">Valentyna Hordiienko · Middle Learning Architect</footer>
+</body>
+</html>
