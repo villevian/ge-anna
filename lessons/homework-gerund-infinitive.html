@@ -98,12 +98,12 @@
 <header>
   <div class="top">
     <div class="logo">r/</div>
-    <h1>r/GerundOrInfinitive · Homework<small>Повторяем уроки 1 и 2: глаголы, предлоги, too/enough, «меняется смысл»</small></h1>
+    <h1>r/UXJobHunt · Homework<small>Как дизайнеры ищут работу · повторяем to do / doing</small></h1>
     <div class="score" id="score">⬆ 0 karma</div>
   </div>
   <nav>
     <button data-v="cheat">📖 Таблица</button>
-    <button data-v="posts" class="on">🔥 Reddit-драмы</button>
+    <button data-v="posts" class="on">💼 Истории</button>
     <button data-v="comments">💬 Комментарии</button>
     <button data-v="write">✍️ Твой пост</button>
   </nav>
@@ -122,21 +122,21 @@
 
   <!-- POSTS -->
   <section class="view on" id="posts">
-    <p class="hint">6 новых постов. Выбери правильную форму в каждом пропуске и нажми «Проверить». Подсказка выделена жёлтым: это глагол, предлог или конструкция, от которой зависит форма.</p>
+    <p class="hint">6 историй дизайнеров о поиске работы — советы и смешные случаи. Выбери правильную форму в каждом пропуске и нажми «Проверить». Подсказка выделена жёлтым: это глагол, предлог или конструкция, от которой зависит форма.</p>
     <div class="dots" id="dots"></div>
     <div id="postBox"></div>
   </section>
 
   <!-- COMMENTS -->
   <section class="view" id="comments">
-    <p class="hint">Комментаторы на Reddit пишут быстро и с ошибками. Решай: всё правильно или есть ошибка?</p>
+    <p class="hint">Дизайнеры оставили комментарии — некоторые с ошибками. Решай: всё правильно или есть ошибка?</p>
     <div id="cmBox"></div>
   </section>
 
   <!-- WRITE -->
   <section class="view" id="write"><div class="card">
-   <p class="hint">Напиши свой пост для Reddit (80–120 слов): смешная или бесячая история из жизни — работа, соседи, отпуск, друзья. Можно придумать 😉 Используй минимум <b>6 конструкций</b> из списка — они отмечаются сами, когда ты их пишешь.</p>
-   <input id="wTitle" placeholder="AITA for… / My neighbour… / I can't believe…" style="width:100%;font:inherit;font-weight:700;border:2px solid #cfd3d8;border-radius:10px;padding:8px 10px;margin-bottom:8px">
+   <p class="hint">Напиши свой пост (80–120 слов) на одну тему: <b>как ты нашла свою работу</b> / <b>смешной случай на собеседовании или работе</b> / <b>3 совета junior-дизайнеру</b>. Можно немного придумать 😉 Используй минимум <b>6 конструкций</b> из списка — они отмечаются сами, когда ты их пишешь.</p>
+   <input id="wTitle" placeholder="How I found my first design job / My funniest interview / 3 tips for juniors" style="width:100%;font:inherit;font-weight:700;border:2px solid #cfd3d8;border-radius:10px;padding:8px 10px;margin-bottom:8px">
    <textarea id="wText" rows="9" style="width:100%;font:inherit;border:2px solid #cfd3d8;border-radius:10px;padding:10px" placeholder="Write your post here…"></textarea>
    <div class="row"><span class="result" id="wCount">0 слов</span><span class="sub" id="wUsed"></span></div>
    <div class="chips" id="wChips" style="margin-top:10px"></div>
@@ -183,49 +183,49 @@ const EXTRA = {
 };
 
 const POSTS = [
- {sub:'AmItheAsshole', user:'pasta_museum_curator', ups:'14.8k',
-  title:'AITA for putting my roommate\'s dirty pans on her bed?',
-  text:"My roommate (27F) **promised** {clean|cleaning|to|promise} the kitchen last week. She **forgot** {do|doing|to|forget} it. Again. When I asked, she said she **remembers** {wash|washing|ing|remember} the dishes on Sunday. She didn't. I **stopped** {cook|cooking|ing|stop} at home because our sink is now a museum of old pasta. Yesterday I **tried** {talk|talking|to|try} to her calmly, but she just put on her headphones. Honestly, I'm **too tired** {argue|arguing|to|too} anymore. Is it **worth** {look|looking|ing|be worth} for a new flat?",
-  top:{u:'dish_detective', t:'NTA. «I remember washing them» — in which universe?'}},
- {sub:'antiwork', user:'not_a_team_player_apparently', ups:'22.3k',
-  title:'My manager calls me at 11 p.m. «just for a second»',
-  text:"My manager **is used to** {get|getting|ing|be used to} answers at night. Last night he called me {ask|asking|to|purpose} about ONE slide. I really **regret** {give|giving|ing|regret} him my personal number. Today he **insisted on** {have|having|ing|insist on} a meeting at 8 a.m. «just for 5 minutes». It lasted an hour. Now I **have trouble** {sleep|sleeping|ing|have trouble}. I'm **thinking of** {find|finding|ing|think of} a new job. HR says **it's important** {be|being|to|it + adj} «a team player». Is there any **point in** {complain|complaining|ing|no point in}?",
-  top:{u:'boundaries_bot', t:'Phone on silent after 7. Answering at 11 p.m. is not part of your salary.'}},
- {sub:'weddingshaming', user:'pink_dress_rebel', ups:'31.6k',
-  title:'My sister sent us a 14-page guide for her wedding',
-  text:"My sister **is afraid of** {lose|losing|ing|be afraid of} control, so all the guests got a 14-page PDF. Page 3: «We **regret** {inform|informing|to|regret} you that children are not invited.» She sent it to our MUM. Then she **made** us {buy|buying|bare|make} matching green dresses for €300. I **can't afford** {spend|spending|to|afford} that on a dress I'll wear once. She also said I'm «not tall **enough**» {wear|wearing|to|enough} green. Wow. I **look forward to** {see|seeing|ing|look forward to} her face when I arrive in pink. I'm very **good at** {make|making|ing|be good at} an entrance 💅",
-  top:{u:'wedding_popcorn', t:'14 pages?! The Bible has fewer rules for weddings.'}},
- {sub:'TrueOffMyChest', user:'flipflop_sprinter', ups:'18.9k',
-  title:'I forgot my passport. We were already at the airport.',
-  text:"I clearly **remember** {lock|locking|ing|remember} the door. I **remember** {turn|turning|ing|remember} off the iron. But somehow I **forgot** {pack|packing|to|forget} my passport. My husband **stopped** {talk|talking|ing|stop} to me for twenty minutes. Then he **stopped** {buy|buying|to|stop} a coffee, calmed down and said: «**Try** {call|calling|ing|try} Lena, she has our key!» Our neighbour Lena drove 40 minutes {bring|bringing|to|purpose} it. We **succeeded in** {catch|catching|ing|succeed in} the flight. I will never **forget** {run|running|ing|forget} through Terminal 2 in flip-flops.",
-  top:{u:'travel_angel_lena_fan', t:'Lena deserves a holiday too. Buy her the best souvenir in Portugal.'}},
- {sub:'relationship_advice', user:'yoga_is_not_just_stretching', ups:'9.4k',
-  title:'My boyfriend loves the gym more than me (I think)',
-  text:"{go|going|ing|subject} to the gym is great, I know. But my boyfriend **spends** two hours every evening {take|taking|ing|spend time} selfies there. He **is proud of** {have|having|ing|be proud of} «the best abs in the office». Now he **has suggested** {join|joining|ing|suggest} him at 6 a.m. I **hate** {get|getting|ing|hate} up early. I'm **interested in** {try|trying|ing|be interested in} yoga, but he says yoga is «just stretching». I **would prefer** {spend|spending|to|would prefer} our evenings together, on the sofa. But **it's no use** {explain|explaining|ing|no use}. He doesn't listen.",
-  top:{u:'sofa_supremacy', t:'Tell him the sofa is a full-body workout if you do it right 😂'}},
- {sub:'AmItheAsshole', user:'drums_at_dawn', ups:'12.1k',
-  title:'AITA for forgiving my neighbour just because of cookies?',
-  text:"My neighbour **started** {learn|learning|ing|start} the drums in March. It's November. He **practises** {play|playing|ing|practice} at 7 a.m. every day. I **asked** him {play|playing|to|ask} after 10. He **agreed** {wait|waiting|to|agree}… and then **continued** {play|playing|ing|continue} at 7. Yesterday he knocked {apologise|apologising|to|purpose} and **apologised for** {wake|waking|ing|apologise for} me up. He brought chocolate cookies. Now I kind of **feel like** {forgive|forgiving|ing|feel like} him. The cookies were **too good** {stay|staying|to|too} angry.",
-  top:{u:'cookie_diplomat', t:'NTA. Peace treaties have been signed for less.'}}
+ {sub:'UXDesign', user:'from_napkins_to_figma', ups:'4.2k',
+  title:'How I got my first UX job (after 143 applications)',
+  text:"I **decided** {change|changing|to|decide} my career at 29. I was a waitress, and I **enjoyed** {draw|drawing|ing|enjoy} little app ideas on napkins. I **spent** six months {learn|learning|ing|spend time} Figma on YouTube. Then I **started** {send|sending|ing|start} applications. 143 of them! I still **remember** {get|getting|ing|remember} my first «no». But I **refused** {give up|giving up|to|refuse}. My tip: **stop** {apply|applying|ing|stop} everywhere. Choose 10 companies you really like and **try** {write|writing|ing|try} a short personal message to each one. That's how I **managed** {get|getting|to|manage} my job.",
+  top:{u:'senior_ux_mentor', t:'Love this. Personal messages work much better than 100 copy-paste applications.'}},
+ {sub:'careerguidance', user:'my_cat_is_a_designer', ups:'11.7k',
+  title:'My cat joined my job interview. I got the job.',
+  text:"Last week I had an online interview for a UI designer job. I **was looking forward to** {show|showing|ing|look forward to} my portfolio. I **remembered** {charge|charging|to|remember} my laptop, but I **forgot** {close|closing|to|forget} the door. In the middle of my case study, my cat jumped on the table and **started** {walk|walking|ing|start} across my keyboard. I **couldn't help** {laugh|laughing|ing|can't help}. The design lead smiled and **asked** me {introduce|introducing|to|ask} «my colleague». Two days later they called with an offer. {be|being|ing|subject} yourself really works!",
+  top:{u:'cat_ux_lead', t:'The cat is now Head of Keyboard Testing.'}},
+ {sub:'UXDesign', user:'reviews_50_portfolios_a_week', ups:'6.9k',
+  title:'Portfolio tips from a design lead (I see 50 portfolios a week)',
+  text:"1. **It's important** {show|showing|to|it + adj} your process, not only pretty screens. 2. **Avoid** {add|adding|ing|avoid} ten case studies: three good ones are **enough** {show|showing|to|enough} your skills. 3. **Don't forget** {write|writing|to|forget} your role. What did YOU do? 4. Many juniors **are afraid of** {talk|talking|ing|be afraid of} about mistakes. Don't be! 5. Use real numbers {explain|explaining|to|purpose} your results: «Sign-ups grew by 20%». 6. **Practise** {present|presenting|ing|practice} one case in five minutes. 7. **It's worth** {ask|asking|ing|be worth} a friend for honest feedback before you send it.",
+  top:{u:'junior_in_kyiv', t:'Saving this! Point 4 is so true, I always hide my mistakes.'}},
+ {sub:'jobs', user:'asked_200_designers', ups:'15.3k',
+  title:'I asked 200 designers where they found their job. The best answers:',
+  text:"• «I **offered** {redesign|redesigning|to|offer} the menu of my favourite café for free. The owner's husband was a CTO.» • «I **stopped** {scroll|scrolling|ing|stop} LinkedIn and went to a local meetup. I **happened** {sit|sitting|to|happen} next to my future boss.» • «I **suggested** {fix|fixing|ing|suggest} a small bug in a comment under their Instagram post. They hired me.» • «My mum **made** me {go|going|bare|make} to my cousin's wedding. The groom was a product manager.» • «I'm **good at** {make|making|ing|be good at} memes. A start-up **let** me {run|running|bare|let} their TikTok, and later their design.» Conclusion: there's **no point in** {wait|waiting|ing|no point in} for the perfect job ad.",
+  top:{u:'wedding_networking_pro', t:'Note to self: go to more weddings 😂'}},
+ {sub:'UXDesign', user:'week_one_junior', ups:'3.8k',
+  title:'My first week as a junior designer: what nobody tells you',
+  text:"I **expected** {design|designing|to|expect} beautiful screens all day. Reality: I **spend** most of my time {sit|sitting|ing|spend time} in meetings. I'm **not used to** {get|getting|ing|be used to} 40 Slack messages before lunch. My lead **asked** me {rename|renaming|to|ask} 300 layers in Figma. Fun! But I **don't mind** {do|doing|ing|mind} boring tasks, because I **want** {learn|learning|to|want}. On Tuesday I was **too nervous** {ask|asking|to|too} a question in the meeting, so I asked ChatGPT instead 😅 Now I **regret** {not ask|not asking|ing|regret} the team. Seniors actually love questions!",
+  top:{u:'design_lead_anna_k', t:'As a lead: please ask! A 2-minute question saves 2 hours of work.'}},
+ {sub:'careerguidance', user:'perfectionist_in_recovery', ups:'9.1k',
+  title:'My worst (and funniest) interview answer ever',
+  text:"I **prepared** {answer|answering|to|prepare} every possible question. I **practised** {say|saying|ing|practice} «My biggest weakness is perfectionism» in the mirror. At the interview HR asked: «Do you **enjoy** {work|working|ing|enjoy} in a team?» I said: «Yes, I love perfectionism!» Silence. I **tried** {explain|explaining|to|try}, but it only got worse. On the way home I **stopped** {buy|buying|to|stop} ice cream (therapy 🍦). Two days later they called: they **would like** {invite|inviting|to|would like} me to the second round. They said they **appreciated** {have|having|ing|appreciate} a good laugh.",
+  top:{u:'hr_with_humour', t:'As an HR person: honest and funny beats perfect every time.'}}
 ];
 
 const COMMENTS = [
- {u:'landlord_hater', a:'🏠', t:'Try talking to your landlord. Maybe he can help.', ok:true, fix:'try + doing = попробуй как вариант ✔'},
- {u:'early_bird_no', a:'🐓', t:"I'm used to wake up at 6 because of my neighbour's dog.", ok:false, fix:"I'm used to <b>waking</b> — be used to + doing (to здесь предлог)"},
- {u:'privacy_queen', a:'🔒', t:'Remember to lock your phone before your sister reads it!', ok:true, fix:'remember + to do = не забудь сделать ✔'},
- {u:'just_leave', a:'🚪', t:'There is no point to complain. Just leave.', ok:false, fix:'no point <b>in complaining</b> — no point (in) + doing'},
- {u:'lesson_learned', a:'📵', t:'I regret to give my boss my number too. Never again.', ok:false, fix:'regret <b>giving</b> — жалею о том, что сделала → doing'},
- {u:'people_pleaser', a:'🥺', t:"You're too nice for say no to her.", ok:false, fix:'too nice <b>to say</b> — too + adjective + to do'},
- {u:'night_owl', a:'🦉', t:'Going to bed at 2 a.m. is my whole personality 😴', ok:true, fix:'doing как подлежащее ✔'},
- {u:'update_hunter', a:'🔔', t:"I'm looking forward to hear the update!", ok:false, fix:'looking forward to <b>hearing</b> — to здесь предлог → doing'},
- {u:'family_drama', a:'🎭', t:'My brother stopped talking to me after my wedding. Best year ever 😂', ok:true, fix:'stop + doing = перестать ✔'},
- {u:'gym_critic', a:'💪', t:'He goes to the gym for showing his abs on Instagram.', ok:false, fix:'goes to the gym <b>to show</b> — цель (чтобы) → to do'},
- {u:'honest_abe', a:'🗣️', t:"It's important being honest with your sister.", ok:false, fix:"It's important <b>to be</b> — it + be + adjective + to do"},
- {u:'cookie_monster', a:'🍪', t:"I'm not very good at saying no to cookies either.", ok:true, fix:'good at + doing ✔'},
- {u:'abs_or_me', a:'💔', t:'Is it worth to fight for a man who loves his abs more than you?', ok:false, fix:'worth <b>fighting</b> — be worth + doing'},
- {u:'wedding_memories', a:'💒', t:"I'll never forget to see my ex's face at that wedding.", ok:false, fix:"never forget <b>seeing</b> — не забуду, как это было → doing"},
- {u:'photo_please', a:'📸', t:"Don't forget to send us a photo of the pink dress!", ok:true, fix:'forget + to do = забыть сделать ✔'},
- {u:'gentleman_not', a:'🎩', t:'On our first date he insisted to pay for everything. Then he sent me the bill.', ok:false, fix:'insisted <b>on paying</b> — insist on + doing'}
+ {u:'rejected_but_ok', a:'📭', t:"I'm used to get rejections. It's part of the game.", ok:false, fix:"used to <b>getting</b> — be used to + doing (to здесь предлог)"},
+ {u:'linkedin_coach', a:'💼', t:"Don't forget to update your LinkedIn headline!", ok:true, fix:'forget + to do = забыть сделать ✔'},
+ {u:'curious_pm', a:'👀', t:"I'd love seeing your portfolio! Can you share the link?", ok:false, fix:"I'd love <b>to see</b> — would love + to do"},
+ {u:'side_project_fan', a:'🛠️', t:"It's worth doing a small redesign of an app you love.", ok:true, fix:'be worth + doing ✔'},
+ {u:'self_taught_ui', a:'🎨', t:'I spent two months to learn Figma before my first job.', ok:false, fix:'spent two months <b>learning</b> — spend time + doing'},
+ {u:'research_nerd', a:'🔍', t:'Learning UX research changed my career.', ok:true, fix:'doing как подлежащее ✔'},
+ {u:'agency_dreams', a:'🏢', t:"I'm thinking of to apply to a design agency.", ok:false, fix:'thinking of <b>applying</b> — после предлога → doing'},
+ {u:'prototype_tip', a:'🎬', t:'Try adding a short video of your prototype to the case study.', ok:true, fix:'try + doing = попробуй как вариант ✔'},
+ {u:'cat_owner_2', a:'🐈', t:'My cat also enjoys to join my Zoom calls.', ok:false, fix:'enjoys <b>joining</b> — enjoy + doing'},
+ {u:'shy_designer', a:'🙈', t:"I'm too shy to post my work on LinkedIn.", ok:true, fix:'too + adjective + to do ✔'},
+ {u:'follow_up_fan', a:'📨', t:'My mentor suggested to send a follow-up email after three days.', ok:false, fix:'suggested <b>sending</b> — suggest + doing'},
+ {u:'numbers_person', a:'📊', t:'I remember sending 200 applications and getting only 3 answers.', ok:true, fix:'remember + doing = помню, как было ✔'},
+ {u:'cv_police', a:'📄', t:'Recruiters avoid to read long CVs. Keep it to one page!', ok:false, fix:'avoid <b>reading</b> — avoid + doing'},
+ {u:'meetup_lover', a:'🍕', t:'I went to a design meetup for meeting new people.', ok:false, fix:'went to a meetup <b>to meet</b> — цель (чтобы) → to do'},
+ {u:'no_free_work', a:'💸', t:"I can't afford working for free anymore.", ok:false, fix:"can't afford <b>to work</b> — afford + to do"},
+ {u:'monday_newbie', a:'🎉', t:"I'm really looking forward to starting my new job on Monday!", ok:true, fix:'look forward to + doing ✔'}
 ];
 
 /* ---------- karma ---------- */
@@ -310,7 +310,7 @@ function renderPost(){
        <div class="notes" id="notes"></div>
        <div class="comment" id="top"><div class="meta"><b>u/${p.top.u}</b> · Top comment · ⬆ ${Math.floor(Math.random()*8+2)}.${Math.floor(Math.random()*9)}k</div>${p.top.t}</div>
        <div class="row" id="navrow" style="display:none">
-         ${cur<POSTS.length-1?'<button class="main-btn" onclick="goPost(cur+1)">Следующий пост →</button>':'<span class="result">🏁 Последний пост! Дальше — «Комментарии» и «Твой пост».</span>'}
+         ${cur<POSTS.length-1?'<button class="main-btn" onclick="goPost(cur+1)">Следующий пост →</button>':'<span class="result">🏁 Последняя история! Дальше — «Комментарии» и «Твой пост».</span>'}
          <button class="ghost" onclick="renderPost()">Пройти заново</button>
        </div>
      </div></div></div>`;
@@ -348,7 +348,7 @@ function renderCm(){
   const box=document.getElementById('cmBox');
   if(ci>=COMMENTS.length){
     box.innerHTML=`<div class="card done-box"><div class="big">💬</div><h2>${cOk} / ${COMMENTS.length}</h2>
-      <p class="sub">${cOk>=14?'Ты официальный грамматический модератор Reddit 🛡️':cOk>=10?'Неплохо! Ещё кружок — и бан для всех ошибок 😎':'Загляни в шпаргалку и попробуй ещё раз 💪'}</p>
+      <p class="sub">${cOk>=14?'Грамматика как у senior-дизайнера 🛡️':cOk>=10?'Неплохо! Ещё кружок — и бан для всех ошибок 😎':'Загляни в шпаргалку и попробуй ещё раз 💪'}</p>
       <button class="main-btn" onclick="ci=0;cOk=0;renderCm()">Ещё раз</button></div>`;
     return;
   }
@@ -391,7 +391,7 @@ document.getElementById('wText').oninput=wUpd;wUpd();
 <script>
 (()=>{
 const SB_URL="https://zuegojpfhgigsvyrnymt.supabase.co",SB_KEY="sb_publishable__Xn8xRhne9Hp2ckaXu6xCQ_MOe52bng";
-const LESSON="GE B1 Gerund vs Infinitive: Homework",CODE="2e1bfecb13d88ed771d4b108fa75cdd3";const $=id=>document.getElementById(id);
+const LESSON="GE B1 Gerund vs Infinitive: Homework UX",CODE="2e1bfecb13d88ed771d4b108fa75cdd3";const $=id=>document.getElementById(id);
 const rpc=(f,b)=>fetch(SB_URL+"/rest/v1/rpc/"+f,{method:"POST",headers:{apikey:SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(b)}).then(async r=>{const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null});
 let ready=false,submitted=false,timer=null;const postRes={};let drillBest=null;
 function st(t,c){$("syst").textContent=t;$("syst").style.color=c||"var(--muted)"}
